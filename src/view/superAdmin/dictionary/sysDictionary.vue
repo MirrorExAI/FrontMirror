@@ -80,16 +80,17 @@
         </el-table-column>
 
         <el-table-column align="left" label="描述" prop="desc" width="280" />
+        <el-table-column align="left" label="用户ID" prop="user_id" width="280" />
 
         <el-table-column align="left" label="操作">
           <template #default="scope">
-            <el-button
+<!--            <el-button-->
 
-              icon="document"
-              type="primary"
-              link
-              @click="toDetail(scope.row)"
-            >详情</el-button>
+<!--              icon="document"-->
+<!--              type="primary"-->
+<!--              link-->
+<!--              @click="toDetail(scope.row)"-->
+<!--            >详情</el-button>-->
             <el-button
 
               icon="edit"

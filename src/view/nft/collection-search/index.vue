@@ -2,9 +2,9 @@
 	<div>
 		<div class="gva-search-box">
 			<el-form ref="searchForm" :inline="true" :model="searchInfo">
-				<el-form-item label="用户id">
-					<el-input v-model="searchInfo.id" placeholder="" />
-				</el-form-item>
+<!--				<el-form-item label="用户id">-->
+<!--					<el-input v-model="searchInfo.id" placeholder="" />-->
+<!--				</el-form-item>-->
 				<el-form-item label="用户地址">
 					<el-input v-model="searchInfo.customerAddress" placeholder="" />
 				</el-form-item>
@@ -12,9 +12,21 @@
 					<el-input v-model="searchInfo.approvalAddress" placeholder="" />
 				</el-form-item>
 
-				<el-form-item label="渠道">
-					<el-input v-model="searchInfo.primaryChannel" placeholder="" />
-				</el-form-item>
+<!--				<el-form-item label="渠道">-->
+<!--					<el-input v-model="searchInfo.primaryChannel" placeholder="" />-->
+<!--				</el-form-item>-->
+
+<!--        <el-form ref="searchForm" :inline="true" :model="searchInfo">-->
+        <el-form-item label="一级渠道">
+          <el-select v-model="searchInfo.channel" clearable placeholder="请选择">
+            <el-option
+                v-for="item in channelList"
+                :key="item.userName"
+                :label="`${item.userName}`"
+                :value="item.userName"
+            />
+          </el-select>
+        </el-form-item>
 
 				<el-form-item label="币种">
 					<el-select v-model="searchInfo.token" clearable placeholder="请选择">
@@ -229,6 +241,7 @@
 	import injectedModule from '@web3-onboard/injected-wallets'
 	import {utils,ethers} from 'ethers'
 	import walletConnectModule from '@web3-onboard/walletconnect'
+  import {getUserList} from "@/api/collection";
 	// import {
 	// 	ERC20
 	// } from "@ethcontracts/core";
@@ -375,6 +388,17 @@
 	}
 
 	getTableData()
+
+
+  const channelList=ref([])
+  const getchannelList=async()=>{
+    const result = await getUserList()
+    for(var i=0;i<result.data.users.length;i++)
+    {
+      channelList.value.push({id:result.data.users[i].id,userName:result.data.users[i].userName})
+    }
+  }
+  getchannelList()
 
 	// 批量操作
 	const handleSelectionChange = (val) => {
