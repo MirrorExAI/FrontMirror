@@ -58,7 +58,7 @@
         <el-table-column align="left" label="请求IP" prop="ip" width="120" />
         <el-table-column align="left" label="请求方法" prop="method" width="120" />
         <el-table-column align="left" label="请求路径" prop="path" width="240" />
-        <el-table-column align="left" label="请求" prop="path" width="80">
+        <el-table-column align="left" label="请求" prop="path" width="180">
           <template #default="scope">
             <div>
               <el-popover v-if="scope.row.body" placement="left-start" trigger="click">
@@ -74,7 +74,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column align="left" label="响应" prop="path" width="80">
+        <el-table-column align="left" label="响应" prop="path" width="180">
           <template #default="scope">
             <div>
               <el-popover v-if="scope.row.resp" placement="left-start" trigger="click">
@@ -89,20 +89,20 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column align="left" label="操作">
-          <template #default="scope">
-            <el-popover v-model="scope.row.visible" placement="top" width="160">
-              <p>确定要删除吗？</p>
-              <div style="text-align: right; margin-top: 8px;">
-                <el-button type="primary" link @click="scope.row.visible = false">取消</el-button>
-                <el-button type="primary" @click="deleteSysOperationRecordFunc(scope.row)">确定</el-button>
-              </div>
-              <template #reference>
-                <el-button icon="delete" type="primary" link @click="scope.row.visible = true">删除</el-button>
-              </template>
-            </el-popover>
-          </template>
-        </el-table-column>
+<!--        <el-table-column align="left" label="操作">-->
+<!--          <template #default="scope">-->
+<!--            <el-popover v-model="scope.row.visible" placement="top" width="160">-->
+<!--              <p>确定要删除吗？</p>-->
+<!--              <div style="text-align: right; margin-top: 8px;">-->
+<!--                <el-button type="primary" link @click="scope.row.visible = false">取消</el-button>-->
+<!--                <el-button type="primary" @click="deleteSysOperationRecordFunc(scope.row)">确定</el-button>-->
+<!--              </div>-->
+<!--              <template #reference>-->
+<!--                <el-button icon="delete" type="primary" link @click="scope.row.visible = true">删除</el-button>-->
+<!--              </template>-->
+<!--            </el-popover>-->
+<!--          </template>-->
+<!--        </el-table-column>-->
       </el-table>
       <div class="gva-pagination">
         <el-pagination
