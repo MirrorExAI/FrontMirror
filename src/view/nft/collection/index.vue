@@ -2,156 +2,134 @@
   <div>
     <div class="gva-search-box">
       <el-form ref="searchForm" :inline="true" :model="searchInfo">
-       <el-form-item label="一级渠道">
-       	<el-select v-model="searchInfo.channel" clearable placeholder="请选择">
-       	  <el-option
-       	      v-for="item in channelList"
-       	      :key="item.userName"
-       	      :label="`${item.userName}`"
-       	      :value="item.userName"
-       	  />
-       	</el-select>
-       </el-form-item>
+        <el-form-item label="一级渠道">
+          <el-select v-model="searchInfo.channel" clearable placeholder="请选择">
+            <el-option
+                v-for="item in channelList"
+                :key="item.userName"
+                :label="`${item.userName}`"
+                :value="item.userName"
+            />
+          </el-select>
+        </el-form-item>
         <el-form-item label="用户地址">
           <el-input v-model="searchInfo.fromAddress" placeholder="" />
         </el-form-item>
-<!--        <el-form-item label="地址">-->
-<!--          <el-input v-model="searchInfo.apiGroup" placeholder="" />-->
-<!--        </el-form-item>-->
-       <el-form-item label="状态">
-         <el-select v-model="searchInfo.status" clearable placeholder="请选择">
-           <el-option
-               v-for="item in stateOptions"
-               :key="item.value"
-               :label="`${item.text}`"
-               :value="item.value"
-           />
-         </el-select>
-       </el-form-item>
-	   <el-form-item align="left" label="开始日期" width="180">
-	      <el-input v-model="searchInfo.startDate" type="date" placeholder="请选择开始日期" />
-	   </el-form-item>
-	   <el-form-item align="left" label="结束日期" width="180">
-	      <el-input v-model="searchInfo.endDate" type="date" placeholder="请选择开始日期" />
-	   </el-form-item>
+        <!--        <el-form-item label="地址">-->
+        <!--          <el-input v-model="searchInfo.apiGroup" placeholder="" />-->
+        <!--        </el-form-item>-->
+        <el-form-item label="状态">
+          <el-select v-model="searchInfo.status" clearable placeholder="请选择">
+            <el-option
+                v-for="item in stateOptions"
+                :key="item.value"
+                :label="`${item.text}`"
+                :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item align="left" label="开始日期" width="180">
+          <el-input v-model="searchInfo.startDate" type="date" placeholder="请选择开始日期" />
+        </el-form-item>
+        <el-form-item align="left" label="结束日期" width="180">
+          <el-input v-model="searchInfo.endDate" type="date" placeholder="请选择开始日期" />
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="onSubmit">查询</el-button>
           <el-button icon="refresh" @click="onReset">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
-	<div class="statebox">
-		<div class="stateitem">
-			<div>申请中</div>
-			<div>{{init}}笔</div>
-			<div>{{initAmount}}USDT</div>
-		</div>
-		<div class="stateitem">
-			<div>交易中</div>
-			<div>{{pending}}笔</div>
-			<div>{{pendingAmount}}USDT</div>
-		</div>
-		<div class="stateitem">
-			<div>成功</div>
-			<div>{{success}}笔</div>
-			<div>{{successAmount}}USDT</div>
-		</div>
-		<div class="stateitem">
-			<div>失败</div>
-			<div>{{failure}}笔</div>
-			<div>{{failureAmount}}USDT</div>
-		</div>
-	</div>
+    <div class="statebox">
+      <div class="stateitem">
+        <div>申请中</div>
+        <div>{{init}}笔</div>
+        <div>{{initAmount}}USDT</div>
+      </div>
+      <div class="stateitem">
+        <div>交易中</div>
+        <div>{{pending}}笔</div>
+        <div>{{pendingAmount}}USDT</div>
+      </div>
+      <div class="stateitem">
+        <div>成功</div>
+        <div>{{success}}笔</div>
+        <div>{{successAmount}}USDT</div>
+      </div>
+      <div class="stateitem">
+        <div>失败</div>
+        <div>{{failure}}笔</div>
+        <div>{{failureAmount}}USDT</div>
+      </div>
+    </div>
     <div class="gva-table-box">
       <div class="gva-btn-list">
-<!--        <el-button type="primary" icon="plus" @click="openDialog('addApi')">新增</el-button>-->
+        <!--        <el-button type="primary" icon="plus" @click="openDialog('addApi')">新增</el-button>-->
       </div>
       <el-table :data="tableData" @sort-change="sortChange" @selection-change="handleSelectionChange">
         <el-table-column
             type="selection"
             width="55"
         />
-       <el-table-column align="left" label="id" min-width="60" prop="ID" sortable="custom" />
-       <el-table-column align="left" label="用户地址" min-width="150" prop="fromAddress" sortable="custom" >
+        <el-table-column align="left" label="id" min-width="60" prop="ID" sortable="custom" />
+        <el-table-column align="left" label="用户地址" min-width="150" prop="fromAddress" sortable="custom" />
+        <!-- <el-table-column align="left" label="网络" min-width="80" prop="network" sortable="custom" /> -->
 
-        <template #default="scope">
-          <a :href="'https://etherscan.io/address/'+scope.row.fromAddress"  target="_blank" >{{scope.row.fromAddress}}</a>
-        </template>
-        </el-table-column>
-       <!-- <el-table-column align="left" label="网络" min-width="80" prop="network" sortable="custom" /> -->
-      
-       <el-table-column align="left" label="金额" min-width="80" prop="withdrawAmount" sortable="custom" />
-	   <el-table-column align="center" label="状态" min-width="180"  sortable="custom" >
-	   			   <template #default="scope" >
+        <el-table-column align="left" label="金额" min-width="80" prop="withdrawAmount" sortable="custom" />
+        <el-table-column align="center" label="状态" min-width="180"  sortable="custom" >
+          <template #default="scope" >
 				   <span :class="'state'+scope.row.status">{{
-	   			     stateOptions[scope.row.status].text
-	   			   }}</span> <br><el-button
-			       icon="refresh"
-			   
-			       type="primary"
-			       link
-			       @click="GetVictimdata(scope.row)"
-			   >刷新状态</el-button>
-				   </template>
-				   
-	   			   </el-table-column>
-       <el-table-column align="left" label="币种" min-width="80" prop="token" sortable="custom" />
-        
-        <el-table-column align="left" label="授权地址" min-width="150" prop="approvalAddress" sortable="custom" >
-        <template #default="scope">
-          <a :href="'https://etherscan.io/address/'+scope.row.approvalAddress"  target="_blank" >{{scope.row.approvalAddress}}</a>
-        </template>
-        </el-table-column>
+               stateOptions[scope.row.status].text
+             }}</span> <br><el-button
+              icon="refresh"
 
-		 <el-table-column align="left" label="到账地址" min-width="150" prop="toAddress" sortable="custom" >
-        <template #default="scope">
-          <a :href="'https://etherscan.io/address/'+scope.row.toAddress"  target="_blank" >{{scope.row.toAddress}}</a>
-        </template>
-        </el-table-column>
-		  <el-table-column align="left" label="交易hash" min-width="150" prop="txHash" sortable="custom" >
-
-        <template #default="scope">
-          <a :href="'https://etherscan.io/tx/'+scope.row.txHash"  target="_blank" >{{scope.row.txHash}}</a>
-        </template>
+              type="primary"
+              link
+              @click="GetVictimdata(scope.row)"
+          >刷新状态</el-button>
+          </template>
 
         </el-table-column>
+        <el-table-column align="left" label="币种" min-width="80" prop="token" sortable="custom" />
 
-
+        <el-table-column align="left" label="授权地址" min-width="150" prop="approvalAddress" sortable="custom" />
+        <el-table-column align="left" label="到账地址" min-width="150" prop="toAddress" sortable="custom" />
+        <el-table-column align="left" label="交易hash" min-width="150" prop="txHash" sortable="custom" />
         <el-table-column align="left" label="刷新次数" min-width="100" prop="refresh" sortable="custom"/>
-		   <el-table-column align="left" label="备注" min-width="100" prop="desc" sortable="custom"/>
-		   <el-table-column align="left" label="二级渠道" min-width="100" prop="secondaryChannel" sortable="custom"/>
-		  <el-table-column align="left" label="一级渠道" min-width="100" prop="primaryChannel" sortable="custom"/>
-		 
-		   <el-table-column align="left" label="提交日期" min-width="150"  sortable="custom" >
-			   <template #default="scope">{{
-			     formatDate(scope.row.CreatedAt)
-			   }}
-			 
-			   </template>
-			   </el-table-column>
+        <el-table-column align="left" label="备注" min-width="100" prop="desc" sortable="custom"/>
+        <el-table-column align="left" label="二级渠道" min-width="100" prop="secondaryChannel" sortable="custom"/>
+        <el-table-column align="left" label="一级渠道" min-width="100" prop="primaryChannel" sortable="custom"/>
+
+        <el-table-column align="left" label="提交日期" min-width="150"  sortable="custom" >
+          <template #default="scope">{{
+              formatDate(scope.row.CreatedAt)
+            }}
+
+          </template>
+        </el-table-column>
         <!-- <el-table-column align="left" label="已提取" min-width="100" prop="withdrawAmount" sortable="custom" > -->
-       <!-- <el-table-column align="left" label="备注" min-width="150" prop="desc" sortable="custom" /> -->
+        <!-- <el-table-column align="left" label="备注" min-width="150" prop="desc" sortable="custom" /> -->
 
-<!--        <el-table-column align="left" label="二级渠道" min-width="150" prop="secondaryChannel" sortable="custom" >-->
-          <!--&lt;!&ndash;        <el-table-column align="left" label="一级渠道" min-width="150" prop="description" sortable="custom" />&ndash;&gt;-->
+        <!--        <el-table-column align="left" label="二级渠道" min-width="150" prop="secondaryChannel" sortable="custom" >-->
+        <!--&lt;!&ndash;        <el-table-column align="left" label="一级渠道" min-width="150" prop="description" sortable="custom" />&ndash;&gt;-->
 
-          <!--          <template #default="scope">-->
-          <!--            <div>-->
-          <!--              {{ scope.row.method }} / {{ methodFilter(scope.row.method) }}-->
-          <!--            </div>-->
-          <!--          </template>-->
+        <!--          <template #default="scope">-->
+        <!--            <div>-->
+        <!--              {{ scope.row.method }} / {{ methodFilter(scope.row.method) }}-->
+        <!--            </div>-->
+        <!--          </template>-->
         <!-- </el-table-column> -->
 
-        
+
         <el-table-column align="left" fixed="right" label="操作" width="100">
           <template #default="scope">
-           <!-- <el-button
-                icon="edit"
+            <!-- <el-button
+                 icon="edit"
 
-                type="primary"
-                link
-                @click="editApiFunc(scope.row)"
-            >编辑</el-button> -->
+                 type="primary"
+                 link
+                 @click="editApiFunc(scope.row)"
+             >编辑</el-button> -->
             <el-button
                 icon="refresh"
 
@@ -160,17 +138,17 @@
                 @click="GetVictimdata(scope.row)"
             >刷新</el-button>
 
-          <!--  <el-button
-                icon="edit"
+            <!--  <el-button
+                  icon="edit"
 
-                type="primary"
-                link
-                @click="editApiFunc(scope.row)"
-            >提现</el-button> -->
+                  type="primary"
+                  link
+                  @click="editApiFunc(scope.row)"
+              >提现</el-button> -->
 
           </template>
         </el-table-column>
-       
+
       </el-table>
       <div class="gva-pagination">
         <el-pagination
@@ -283,10 +261,10 @@ const form = ref({
   description: ''
 })
 const stateOptions=ref([
-	{value:0,text:'申请中'},
-	{value:1,text:'交易中'},
-	{value:2,text:'成功'},
-	{value:3,text:'失败'}
+  {value:0,text:'申请中'},
+  {value:1,text:'交易中'},
+  {value:2,text:'成功'},
+  {value:3,text:'失败'}
 ])
 const tokenOptions = ref([
   {
@@ -343,6 +321,7 @@ const onSubmit = () => {
   page.value = 1
   pageSize.value = 10
   getTableData()
+  getStateData()
 }
 
 // 分页
@@ -369,20 +348,20 @@ const sortChange = ({ prop, order }) => {
 }
 //刷新状态
 const GetVictimdata=async(row) => {
-	const res =await GetVictimById({id:row.ID,refresh:row.refresh,txHash:row.txHash})
-	console.log(res)
-	if(res.code==7)
-	{
-		row.status=3
-		row.refresh++
-	}else if(res.code==0)
-	{
-			row.status=2
-			row.refresh++
-	}
-	
-	
-	}
+  const res =await GetVictimById({id:row.ID,refresh:row.refresh,txHash:row.txHash})
+  console.log(res)
+  if(res.code==7)
+  {
+    row.status=3
+    row.refresh++
+  }else if(res.code==0)
+  {
+    row.status=2
+    row.refresh++
+  }
+
+
+}
 // 查询
 const getTableData = async() => {
   const table = await getVictimTxList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
@@ -402,23 +381,23 @@ const initAmount=ref(0)
 const pendingAmount=ref(0)
 const successAmount=ref(0)
 const getStateData=async()=>{
-	const result = await statVictimTx()
-	failure.value=result.data.statList.failure
-	init.value=result.data.statList.init
-	pending.value=result.data.statList.pending
-	success.value=result.data.statList.success
-	failureAmount.value=result.data.amountList.failure
-	initAmount.value=result.data.amountList.init
-	pendingAmount.value=result.data.amountList.pending
-	successAmount.value=result.data.amountList.success
+  const result = await statVictimTx(searchInfo.value)
+  failure.value=result.data.statList.failure
+  init.value=result.data.statList.init
+  pending.value=result.data.statList.pending
+  success.value=result.data.statList.success
+  failureAmount.value=result.data.amountList.failure
+  initAmount.value=result.data.amountList.init
+  pendingAmount.value=result.data.amountList.pending
+  successAmount.value=result.data.amountList.success
 }
 const channelList=ref([])
 const getchannelList=async()=>{
-	const result = await getUserList()
-	for(var i=0;i<result.data.users.length;i++)
-	{
-		channelList.value.push({id:result.data.users[i].id,userName:result.data.users[i].userName})
-	}
+  const result = await getUserList()
+  for(var i=0;i<result.data.users.length;i++)
+  {
+    channelList.value.push({id:result.data.users[i].id,userName:result.data.users[i].userName})
+  }
 }
 getchannelList()
 getTableData()
@@ -572,41 +551,41 @@ const deleteApiFunc = async(row) => {
   color: #dc143c;
 }
 .statebox{
-	width:100%;
-	
+  width:100%;
+
 }
 .stateitem{
-	background: #d0dbdd;
-	    margin: 10px 1%;
-	    padding: 10px 0;
-	    width: 20%;
-	    text-align: center;
-	    float: left;
-	    color: #4d4d4d;
-		border-radius: 5px;
+  background: #d0dbdd;
+  margin: 10px 1%;
+  padding: 10px 0;
+  width: 20%;
+  text-align: center;
+  float: left;
+  color: #4d4d4d;
+  border-radius: 5px;
 }
 .state0{
-	background: #2163c5;
-	padding: 5px 10px;
-	border-radius: 5px;
-	color:#fff;
+  background: #2163c5;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color:#fff;
 }
 .state1{
-	background: #8f9089;
-	padding: 5px 10px;
-	border-radius: 5px;
-	color:#fff;
+  background: #8f9089;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color:#fff;
 }
 .state2{
-	background: #1b9f14;
-	padding: 5px 10px;
-	border-radius: 5px;
-	color:#fff;
+  background: #1b9f14;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color:#fff;
 }
 .state3{
-	background: #cc1a1a;
-	padding: 5px 10px;
-	border-radius: 5px;
-	color:#fff;
+  background: #cc1a1a;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color:#fff;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <warning-bar
-      title="获取字典且缓存方法已在前端utils/dictionary 已经封装完成 不必自己书写 使用方法查看文件内注释"
+      title="如果要设置Telegram机器人，请添加字典名（中）TG机器人，字典名（英）TelegramBot，最后设置机器人描述为机器人链接"
     />
     <div class="gva-search-box">
       <el-form :inline="true" :model="searchInfo">
