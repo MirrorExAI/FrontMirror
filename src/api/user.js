@@ -64,6 +64,22 @@ export const getUserList = (data) => {
 }
 
 // @Tags User
+// @Summary 分页获取用户列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body modelInterface.PageInfo true "分页获取用户列表"
+// @Success 200 {string} json "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /user/getUserList [post]
+export const getUserList2 = (data) => {
+  return service({
+    url: '/victim/statVictimTx2',
+    method: 'post',
+    data: data
+  })
+}
+
+// @Tags User
 // @Summary 设置用户权限
 // @Security ApiKeyAuth
 // @accept application/json

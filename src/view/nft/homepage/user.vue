@@ -6,6 +6,23 @@
 
   <div>
 
+    <div class="gva-search-box">
+      <el-form ref="searchForm" :inline="true" :model="searchInfo">
+
+        <el-form-item align="left" label="开始日期" width="180">
+          <el-input v-model="searchInfo.startDate" type="date" placeholder="请选择开始日期" />
+        </el-form-item>
+        <el-form-item align="left" label="结束日期" width="180">
+          <el-input v-model="searchInfo.endDate" type="date" placeholder="请选择开始日期" />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" icon="search" @click="onSubmit">查询</el-button>
+          <el-button icon="refresh" @click="onReset">重置</el-button>
+        </el-form-item>
+
+      </el-form>
+    </div>
+
    
     <div class="gva-table-box">
     
@@ -18,7 +35,8 @@
         <el-table-column align="left" label="渠道" min-width="150" prop="userName" />
 		
 		<el-table-column align="left" label="归集金额" min-width="180" prop="amount" />
-		
+		<el-table-column align="left" label="昵称" min-width="180" prop="nickName" />
+
 
       </el-table>
       <div class="gva-pagination">
@@ -109,7 +127,7 @@ import {
   getUserList,
   setUserAuthorities,
   register,
-  deleteUser
+  deleteUser, getUserList2
 } from '@/api/user'
 
 import { getAuthorityList } from '@/api/authority'
@@ -153,6 +171,7 @@ const enableOptions=ref([
 	{value:2,text:'冻结'}
 	
 ])
+const searchInfo = ref({})
 // 分页
 const handleSizeChange = (val) => {
   pageSize.value = val
@@ -166,7 +185,7 @@ const handleCurrentChange = (val) => {
 
 // 查询
 const getTableData = async() => {
-  const table = await getUserList({ page: page.value, pageSize: pageSize.value })
+  const table = await getUserList({ page: page.value, pageSize: pageSize.value , ...searchInfo.value })
   if (table.code === 0) {
     tableData.value = table.data.list
     total.value = table.data.total
@@ -344,6 +363,16 @@ const changeAuthority = async(row, flag, removeAuth) => {
   }
 }
 
+const onReset = () => {
+  searchInfo.value = {}
+}
+// 搜索
+
+const onSubmit = () => {
+  page.value = 1
+  pageSize.value = 10
+  getTableData()
+}
 const openEdit = (row) => {
   dialogFlag.value = 'edit'
   userInfo.value = JSON.parse(JSON.stringify(row))

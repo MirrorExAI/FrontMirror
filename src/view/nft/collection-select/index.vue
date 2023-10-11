@@ -52,7 +52,7 @@
             type="selection"
             width="55"
         /> -->
-       <!-- <el-table-column align="left" label="id" min-width="60" prop="ID" sortable="custom" /> -->
+        <el-table-column align="left" label="id" min-width="60" prop="ID" sortable="custom" />
        <el-table-column align="left" label="hash" min-width="300" prop="txHash" sortable="custom" >
         <template #default="scope">
           <a :href="'https://etherscan.io/tx/'+scope.row.txHash"  target="_blank" >{{scope.row.txHash}}</a>

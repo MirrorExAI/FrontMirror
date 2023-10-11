@@ -55,13 +55,13 @@
                                   当前角色：{{ userStore.userInfo.authority.authorityName }}
                                 </span>
                               </el-dropdown-item>
-                              <template v-if="userStore.userInfo.authorities">
-                                <el-dropdown-item v-for="item in userStore.userInfo.authorities.filter(i=>i.authorityId!==userStore.userInfo.authorityId)" :key="item.authorityId" @click="changeUserAuth(item.authorityId)">
-                                  <span>
-                                    切换为：{{ item.authorityName }}
-                                  </span>
-                                </el-dropdown-item>
-                              </template>
+<!--                              <template v-if="userStore.userInfo.authorities">-->
+<!--                                <el-dropdown-item v-for="item in userStore.userInfo.authorities.filter(i=>i.authorityId!==userStore.userInfo.authorityId)" :key="item.authorityId" @click="changeUserAuth(item.authorityId)">-->
+<!--                                  <span>-->
+<!--                                    切换为：{{ item.authorityName }}-->
+<!--                                  </span>-->
+<!--                                </el-dropdown-item>-->
+<!--                              </template>-->
                               <el-dropdown-item icon="avatar">
                                 <div class="command-box" style="display: flex" @click="handleCommand">
                                   <div>指令菜单</div>
