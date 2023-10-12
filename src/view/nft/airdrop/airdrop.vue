@@ -21,11 +21,9 @@
         row-key="ID"
       >
         <el-table-column align="left" label="ID" min-width="50" prop="ID" />
-        <el-table-column align="left" label="地址" min-width="150" prop="address" />
-		
-		<el-table-column align="left" label="金额" min-width="180" prop="reward" />
-
-        <el-table-column align="left" label="变动日期" min-width="150"  sortable="custom" >
+        <el-table-column align="left" label="地址" min-width="180" prop="address" />
+		    <el-table-column align="left" label="金额" min-width="180" prop="reward" />
+        <el-table-column align="left" label="创建日期" min-width="150"  sortable="custom" >
           <template #default="scope">{{
               formatDate(scope.row.CreatedAt)
             }}
