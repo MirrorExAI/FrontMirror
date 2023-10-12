@@ -1,6 +1,6 @@
 <template>
   <div>
-    <warning-bar title="注：右上角头像下拉可切换角色" />
+    <!--  <warning-bar title="注：右上角头像下拉可切换角色" />-->
     <div class="gva-table-box">
       <div class="gva-btn-list">
         <el-button type="primary" icon="plus" @click="addUser">新增渠道</el-button>
@@ -16,7 +16,7 @@
         </el-table-column>
         <el-table-column align="left" label="ID" min-width="50" prop="ID" />
         <el-table-column align="left" label="用户名" min-width="150" prop="userName" />
-		 <el-table-column align="left" label="上级id" min-width="150" prop="parentId" />
+		 <el-table-column align="left" label="上级ID" min-width="150" prop="parentId" />
 		
         <el-table-column align="left" label="昵称" min-width="150" prop="nickName" />
 		<el-table-column align="left" label="状态" min-width="150" >
@@ -25,9 +25,9 @@
 				   			   }}  
 							   </template>
 		</el-table-column>
-		<el-table-column align="left" label="谷歌验证码" min-width="180" prop="googleSecret" />
-		<el-table-column align="left" label="飞机通知id" min-width="180" prop="tg" />
-		<el-table-column align="left" label="统计" min-width="180" prop="amount" />
+		<el-table-column align="left" label="谷歌验证码" min-width="240" prop="googleSecret" />
+		<el-table-column align="left" label="飞机通知" min-width="180" prop="tg" />
+		<el-table-column align="left" label="统计" min-width="150" prop="amount" />
 		<el-table-column align="left" label="创建时间" min-width="180" >
 			<template #default="scope">{{
 				   			      formatDate(scope.row.CreatedAt)
