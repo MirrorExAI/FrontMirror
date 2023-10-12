@@ -25,6 +25,13 @@
 		
 		<el-table-column align="left" label="金额" min-width="180" prop="reward" />
 
+        <el-table-column align="left" label="变动日期" min-width="150"  sortable="custom" >
+          <template #default="scope">{{
+              formatDate(scope.row.CreatedAt)
+            }}
+
+          </template>
+        </el-table-column>
 
 
       </el-table>
