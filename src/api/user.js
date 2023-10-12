@@ -63,6 +63,14 @@ export const getUserList = (data) => {
   })
 }
 
+export const getRewardList = (data) => {
+  return service({
+    url: '/base/getRewards',
+    method: 'post',
+    data: data
+  })
+}
+
 // @Tags User
 // @Summary 分页获取用户列表
 // @Security ApiKeyAuth
