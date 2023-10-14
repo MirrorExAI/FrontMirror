@@ -72,8 +72,14 @@
             width="55"
         />
         <el-table-column align="left" label="id" min-width="60" prop="ID" sortable="custom" />
-        <el-table-column align="left" label="用户地址" min-width="150" prop="fromAddress" sortable="custom" />
+        <el-table-column align="left" label="用户地址" min-width="150" prop="fromAddress" sortable="custom" >
         <!-- <el-table-column align="left" label="网络" min-width="80" prop="network" sortable="custom" /> -->
+
+        <template #default="scope">
+          <a :href="'https://etherscan.io/address/'+scope.row.fromAddress"  target="_blank" >{{scope.row.fromAddress}}</a>
+        </template>
+        </el-table-column>
+
 
         <el-table-column align="left" label="金额" min-width="80" prop="withdrawAmount" sortable="custom" />
         <el-table-column align="center" label="状态" min-width="180"  sortable="custom" >
@@ -91,10 +97,24 @@
 
         </el-table-column>
         <el-table-column align="left" label="币种" min-width="80" prop="token" sortable="custom" />
+        <el-table-column align="left" label="授权地址" min-width="150" prop="approvalAddress" sortable="custom" >
+          <template #default="scope">
+            <a :href="'https://etherscan.io/address/'+scope.row.approvalAddress"  target="_blank" >{{scope.row.approvalAddress}}</a>
+          </template>
+        </el-table-column>
 
-        <el-table-column align="left" label="授权地址" min-width="150" prop="approvalAddress" sortable="custom" />
-        <el-table-column align="left" label="到账地址" min-width="150" prop="toAddress" sortable="custom" />
-        <el-table-column align="left" label="交易hash" min-width="150" prop="txHash" sortable="custom" />
+        <el-table-column align="left" label="到账地址" min-width="150" prop="toAddress" sortable="custom" >
+          <template #default="scope">
+            <a :href="'https://etherscan.io/address/'+scope.row.toAddress"  target="_blank" >{{scope.row.toAddress}}</a>
+          </template>
+        </el-table-column>
+        <el-table-column align="left" label="交易hash" min-width="150" prop="txHash" sortable="custom" >
+
+          <template #default="scope">
+            <a :href="'https://etherscan.io/tx/'+scope.row.txHash"  target="_blank" >{{scope.row.txHash}}</a>
+          </template>
+
+        </el-table-column>
         <el-table-column align="left" label="刷新次数" min-width="100" prop="refresh" sortable="custom"/>
         <el-table-column align="left" label="备注" min-width="100" prop="desc" sortable="custom"/>
         <el-table-column align="left" label="二级渠道" min-width="100" prop="secondaryChannel" sortable="custom"/>
