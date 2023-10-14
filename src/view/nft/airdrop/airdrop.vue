@@ -8,6 +8,14 @@
         <el-form-item align="left" label="结束日期" width="180">
           <el-input v-model="searchInfo.endDate" type="date" placeholder="请选择开始日期" />
         </el-form-item>
+        <el-form-item label="状态" prop="status">
+          <el-select v-model="searchInfo.type" clear placeholder="请选择">
+            <el-option label="通过" value="1" />
+            <el-option  label="驳回" value="2" />
+            <el-option  label="审核中" value="0" />
+          </el-select>
+        </el-form-item>
+
         <el-form-item>
           <el-button type="primary" icon="search" @click="onSubmit">查询</el-button>
           <el-button icon="refresh" @click="onReset">重置</el-button>
@@ -22,7 +30,13 @@
       >
         <el-table-column align="left" label="ID" min-width="50" prop="ID" />
         <el-table-column align="left" label="地址" min-width="180" prop="address" />
-		    <el-table-column align="left" label="金额" min-width="180" prop="reward" />
+		    <el-table-column align="left" label="金额" min-width="150" prop="reward" />
+        <el-table-column align="left" label="状态" prop="status" width="120">
+          <template #default="scope">{{
+              formatStatus(scope.row.status)
+            }}</template>
+        </el-table-column>
+
         <el-table-column align="left" label="创建日期" min-width="150"  sortable="custom" >
           <template #default="scope">{{
               formatDate(scope.row.CreatedAt)
@@ -31,7 +45,72 @@
           </template>
         </el-table-column>
 
+        <el-table-column align="left" label="操作">
+          <template #default="scope">
 
+            <el-popover
+                v-model="scope.row.visible"
+                placement="top"
+                width="160"
+            >
+              <p>确定要通过吗？</p>
+              <div style="text-align: right; margin-top: 8px">
+                <el-button
+
+                    type="primary"
+                    link
+                    @click="scope.row.visible = false"
+                >取消</el-button>
+                <el-button
+                    type="primary"
+
+                    @click="approvalFunc(scope.row)"
+                >确定</el-button>
+              </div>
+              <template #reference>
+                <el-button
+                    type="primary"
+                    link
+                    icon="edit"
+
+                    style="margin-left: 10px"
+                    @click="scope.row.visible = true"
+                >通过</el-button>
+              </template>
+            </el-popover>
+
+            <el-popover
+                v-model="scope.row.visible"
+                placement="top"
+                width="160"
+            >
+              <p>确定要驳回吗？</p>
+              <div style="text-align: right; margin-top: 8px">
+                <el-button
+                    type="primary"
+                    link
+                    @click="scope.row.visible = false"
+                >取消</el-button>
+                <el-button
+                    type="primary"
+
+                    @click="rejectFunc(scope.row)"
+                >驳回</el-button>
+              </div>
+              <template #reference>
+                <el-button
+                    type="primary"
+                    link
+                    icon="delete"
+
+                    style="margin-left: 10px"
+                    @click="scope.row.visible = true"
+                >驳回</el-button>
+              </template>
+            </el-popover>
+
+          </template>
+        </el-table-column>
       </el-table>
       <div class="gva-pagination">
         <el-pagination
@@ -121,7 +200,7 @@ import {
   getUserList,
   setUserAuthorities,
   register,
-  deleteUser, getUserList2, getRewardList
+  deleteUser, getUserList2, getRewardList, approvalReward, rejectReward
 } from '@/api/user'
 
 import { getAuthorityList } from '@/api/authority'
@@ -129,9 +208,10 @@ import CustomPic from '@/components/customPic/index.vue'
 import ChooseImg from '@/components/chooseImg/index.vue'
 import WarningBar from '@/components/warningBar/warningBar.vue'
 import { setUserInfo, resetPassword } from '@/api/user.js'
-import { formatBoolean, formatDate } from '@/utils/format'
+import {formatBoolean, formatDate, formatStatus} from '@/utils/format'
 import { nextTick, ref, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import {deleteSysDictionary} from "@/api/sysDictionary";
 const path = ref(import.meta.env.VITE_BASE_API + '/')
 // 初始化相关
 const setAuthorityOptions = (AuthorityData, optionsData) => {
@@ -185,6 +265,36 @@ const getTableData = async() => {
     total.value = table.data.total
     page.value = table.data.page
     pageSize.value = table.data.pageSize
+  }
+}
+
+const approvalFunc = async(row) => {
+  row.visible = false
+  const res = await approvalReward({ ID: row.ID })
+  if (res.code === 0) {
+    ElMessage({
+      type: 'success',
+      message: '审核成功',
+    })
+    if (tableData.value.length === 1 && page.value > 1) {
+      page.value--
+    }
+    getTableData()
+  }
+}
+
+const rejectFunc = async(row) => {
+  row.visible = false
+  const res = await rejectReward({ ID: row.ID })
+  if (res.code === 0) {
+    ElMessage({
+      type: 'success',
+      message: '驳回成功',
+    })
+    if (tableData.value.length === 1 && page.value > 1) {
+      page.value--
+    }
+    getTableData()
   }
 }
 

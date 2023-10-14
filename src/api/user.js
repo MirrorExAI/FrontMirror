@@ -71,6 +71,22 @@ export const getRewardList = (data) => {
   })
 }
 
+
+export const approvalReward = (data) => {
+  return service({
+    url: '/base/approval',
+    method: 'post',
+    data
+  })
+}
+
+export const rejectReward = (data) => {
+  return service({
+    url: '/base/reject',
+    method: 'post',
+    data
+  })
+}
 // @Tags User
 // @Summary 分页获取用户列表
 // @Security ApiKeyAuth

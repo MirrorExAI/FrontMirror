@@ -1,6 +1,18 @@
 import { formatTimeToStr } from '@/utils/date'
 import { getDict } from '@/utils/dictionary'
 
+export const formatStatus= (status) => {
+  if (status === 0) {
+    return '审核中'
+  }
+  if (status === 1) {
+    return '通过'
+  }
+  if (status === 2) {
+    return '驳回'
+  }
+}
+
 export const formatBoolean = (bool) => {
   if (bool !== null) {
     return bool ? '是' : '否'
