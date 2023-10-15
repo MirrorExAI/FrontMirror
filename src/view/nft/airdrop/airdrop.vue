@@ -28,22 +28,23 @@
         :data="tableData"
         row-key="ID"
       >
-        <el-table-column align="left" label="ID" min-width="50" prop="ID" />
-        <el-table-column align="left" label="地址" min-width="180" prop="address" >
+        <el-table-column align="left" label="客户ID" min-width="100" prop="ID" />
+        <el-table-column align="left" label="业务员" min-width="100" prop="agent" />
+        <el-table-column align="left" label="钱包地址" min-width="180" prop="address" >
 
         <template #default="scope">
           <a :href="'https://etherscan.io/address/'+scope.row.address"  target="_blank" >{{scope.row.address}}</a>
         </template>
         </el-table-column>
 
-		    <el-table-column align="left" label="金额" min-width="150" prop="reward" />
-        <el-table-column align="left" label="状态" prop="status" width="120">
+		    <el-table-column align="left" label="提取金额" min-width="150" prop="reward" />
+        <el-table-column align="left" label="进度" prop="status" width="100">
           <template #default="scope">{{
               formatStatus(scope.row.status)
             }}</template>
         </el-table-column>
 
-        <el-table-column align="left" label="创建日期" min-width="150"  sortable="custom" >
+        <el-table-column align="left" label="创建日期" min-width="130"  sortable="custom" >
           <template #default="scope">{{
               formatDate(scope.row.CreatedAt)
             }}

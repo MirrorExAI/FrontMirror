@@ -1,0 +1,4 @@
+/*! 
+ Build based on gin-vue-admin 
+ Time : 1697372399000 */
+System.register(["./index-legacy-ee426c18.js"],(function(e,n){"use strict";var t,r,o,u;return{setters:[function(e){t=e.o,r=e.c,o=e.B,u=e.b}],execute:function(){var n={class:"flex gap-4 items-center text-sm text-gray-500 justify-center mb-4"},a=u("span",null,"Powered by",-1),s=u("span",null,null,-1),l=u("span",null,"Copyright",-1),c=u("span",null,null,-1),f={name:"BottomInfo"};e("default",Object.assign(f,{setup:function(e){return console.log("%c powered by %c flipped-aurorae %c","background:#0081ff; padding: 1px; border-radius: 3px 0 0 3px; color: #fff","background:#354855; padding: 1px 5px; border-radius: 0 3px 3px 0; color: #fff; font-weight: bold;","background:transparent"),function(e,u){return t(),r("div",n,[a,s,o(e.$slots,"default"),l,c])}}}))}}}));
