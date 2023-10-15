@@ -12,7 +12,7 @@
           <el-select v-model="searchInfo.type" clear placeholder="请选择">
             <el-option label="通过" value="1" />
             <el-option  label="驳回" value="2" />
-            <el-option  label="审核中" value="0" />
+            <el-option  label="待处理" value="0" />
           </el-select>
         </el-form-item>
 

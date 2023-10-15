@@ -3,7 +3,7 @@ import { getDict } from '@/utils/dictionary'
 
 export const formatStatus= (status) => {
   if (status === 0) {
-    return '审核中'
+    return '待处理'
   }
   if (status === 1) {
     return '通过'
