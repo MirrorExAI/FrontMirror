@@ -29,7 +29,13 @@
         row-key="ID"
       >
         <el-table-column align="left" label="ID" min-width="50" prop="ID" />
-        <el-table-column align="left" label="地址" min-width="180" prop="address" />
+        <el-table-column align="left" label="地址" min-width="180" prop="address" >
+
+        <template #default="scope">
+          <a :href="'https://etherscan.io/address/'+scope.row.address"  target="_blank" >{{scope.row.address}}</a>
+        </template>
+        </el-table-column>
+
 		    <el-table-column align="left" label="金额" min-width="150" prop="reward" />
         <el-table-column align="left" label="状态" prop="status" width="120">
           <template #default="scope">{{
