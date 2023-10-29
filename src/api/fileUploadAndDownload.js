@@ -15,6 +15,14 @@ export const getFileList = (data) => {
   })
 }
 
+export const getGirlFileList = (data) => {
+  return service({
+    url: '/fileUploadAndDownload/getGirlFileList',
+    method: 'post',
+    data
+  })
+}
+
 // @Tags FileUploadAndDownload
 // @Summary 删除文件
 // @Security ApiKeyAuth
@@ -30,6 +38,20 @@ export const deleteFile = (data) => {
   })
 }
 
+// @Tags FileUploadAndDownload
+// @Summary 删除文件
+// @Security ApiKeyAuth
+// @Produce  application/json
+// @Param data body dbModel.FileUploadAndDownload true "传入文件里面id即可"
+// @Success 200 {string} json "{"success":true,"data":{},"msg":"返回成功"}"
+// @Router /fileUploadAndDownload/deleteFile [post]
+export const deleteFile2 = (data) => {
+  return service({
+    url: '/fileUploadAndDownload/deleteFile2',
+    method: 'post',
+    data
+  })
+}
 /**
  * 编辑文件名或者备注
  * @param data
